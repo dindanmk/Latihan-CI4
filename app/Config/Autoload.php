@@ -96,4 +96,10 @@ class Autoload extends AutoloadConfig
     public $helpers = [
         'url'
     ];
+
+    public $psr4 = [
+        APP_NAMESPACE => APPPATH, // For custom app namespace
+        'Config'      => APPPATH . 'Config',
+        'CodeIgniterCart'   => ROOTPATH . 'app/ThirdParty/ci4cart/src'
+    ];
 }
