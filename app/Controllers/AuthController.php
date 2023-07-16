@@ -49,4 +49,53 @@
 		        session()->destroy();
 		        return redirect()->to('login');
 		    }
+
+			public function register()
+			{
+				// Check if the form is submitted
+				if ($this->request->getPost() === 'post') {
+					// Validate form inputs
+					$rules = [
+						'username' => 'required|is_unique[user.username]',
+						'role' => 'required',
+						'password' => 'required|min_length[6]',
+						// Add more validation rules as needed
+					];
+
+					if (!$this->validate($rules)) {
+						// If validation fails, redirect back to the registration form with validation errors
+						return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+					}
+
+					// If validation passes, create a new user record
+					$userModel = new UserModel();
+
+					$data = [
+						'username' => $this->request->getPost('username'),
+						'role' => $this->request->getPost('role'),
+						'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+						'is_aktif' => true,
+						// Add more fields as needed
+					];
+
+					$userModel->add($data);
+
+					// Retrieve the registered user's data
+					$dataUser = $userModel->where('username', $data['username'])->first();
+
+					// Set the user data in session
+					session()->set([
+						'username' => $dataUser['username'],
+						'role' => $dataUser['role'],
+						'isLoggedIn' => true
+					]);
+
+					// Redirect to the home page or any desired page after successful registration
+					return redirect()->to('/')->with('success', 'Registration successful. Welcome to the site!');
+				}
+
+				// If the form is not submitted, load the registration view
+				return view('register_view');
+			}
 		}
+?>

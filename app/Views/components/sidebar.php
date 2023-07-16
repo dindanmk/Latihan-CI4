@@ -24,7 +24,13 @@
         <i class="bi bi-receipt"></i>
         <span>Produk</span>
     </a>
-    </li>       
+    </li>
+    <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string()=='kelola-user')?"":"collapsed"?>" href="<?php echo base_url()?>kelola-user">
+                <i class="bi bi-people"></i>
+                <span>Kelola User</span>
+            </a>
+        </li>       
     <?php
         }
     ?>

@@ -37,8 +37,9 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+$routes->get('/register', 'AuthController::register');
+$routes->add('/register', 'AuthController::register');
 $routes->get('/', 'Home::index', ['filter' => 'auth']);
-// $routes->get('/produk', 'Pages::produk');
 $routes->get('/login', 'AuthController::login');
 $routes->add('/login', 'AuthController::login'); 
 $routes->get('/logout', 'AuthController::logout');
@@ -46,14 +47,29 @@ $routes->get('/logout', 'AuthController::logout');
 //$routes->get('/keranjang', 'Pages::keranjang', ['filter' => 'auth']);
 $routes->get('/keranjang', 'TransaksiController::cart_show', ['filter' => 'auth']);
 $routes->add('/keranjang', 'TransaksiController::cart_add', ['filter' => 'auth']);
+$routes->get('/keranjang', 'TransaksiController::index', ['filter' => 'auth']);
 $routes->add('/keranjang/edit', 'TransaksiController::cart_edit', ['filter' => 'auth']);
 $routes->add('/keranjang/delete/(:any)', 'TransaksiController::cart_delete/$1', ['filter' => 'auth']);
 $routes->add('/keranjang/clear', 'TransaksiController::cart_clear', ['filter' => 'auth']);
+$routes->get('/keranjang/getcity', 'TransaksiController::getcity', ['filter' => 'auth']);
+$routes->get('/keranjang/getcost', 'TransaksiController::getcost', ['filter' => 'auth']);
+$routes->add('/keranjang/buy', 'TransaksiController::buy', ['filter' => 'auth']);
+$routes->add('/keranjang/checkout', 'TransaksiController::checkout', ['filter' => 'auth']);
 
+//Produk routes
 $routes->get('/produk', 'ProdukController::index', ['filter' => 'auth']);
 $routes->add('/produk', 'ProdukController::create', ['filter' => 'auth']);
 $routes->add('/produk/edit/(:any)', 'ProdukController::edit/$1', ['filter' => 'auth']);
 $routes->get('/produk/delete/(:any)', 'ProdukController::delete/$1', ['filter' => 'auth']);
+
+//Kelola-user routes
+$routes->group('kelola-user', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'KelolaUserController::index');
+    $routes->add('edit/(:any)', 'KelolaUserController::edit/$1');
+    $routes->get('delete/(:any)', 'KelolaUserController::delete/$1');
+    $routes->get('deactivate/(:any)', 'KelolaUserController::deactivate/$1');
+    $routes->get('activate/(:any)', 'KelolaUserController::activate/$1');
+});
 
 /*
  * --------------------------------------------------------------------

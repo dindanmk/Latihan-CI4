@@ -11,7 +11,7 @@
 		  <meta charset="utf-8">
 		  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-		  <title>- Toko - <?php echo $hlm?></title>
+		  <title>Tables / Data<?php echo $hlm?></title>
 		  <meta content="" name="description">
 		  <meta content="" name="keywords">
 
@@ -53,10 +53,10 @@
 		  <main id="main" class="main">
 
           <div class="pagetitle">
-			  <h1><?php echo $hlm?></h1>
+			  <h1>Data Tables</h1>
 			  <nav>
 				<ol class="breadcrumb">
-				  <li class="breadcrumb-item">Home</li>
+				  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
 				  <?php
 					if($hlm!="Home"){
 					  ?>
@@ -88,6 +88,9 @@
 		  <?= $this->include('components/footer') ?> 
 
 		  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+		  <!-- JQUERY -->
+		  <script src="<?php echo base_url()?>public/NiceAdmin/assets/js/jquery-3.3.1.min.js"></script>
 
 		  <!-- Vendor JS Files -->
 		  <script src="<?php echo base_url()?>public/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
